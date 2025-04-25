@@ -1,0 +1,43 @@
+{
+  "AUTH": {
+    "ERRORS": {
+      "TOKEN_NOT_VALID": "Invalid token",
+      "TOKEN_NOT_PROVIDED": "Token not provided",
+      "LOGIN_FAILED": "Login failed",
+      "UNAUTHORIZED": "Unauthorized",
+      "EMAIL_OR_PASSWORD_NOT_FOUND": "Email or password not found",
+      "PASSWORD_NOT_MATCH": "Password not match"
+    }
+  },
+  "USER": {
+    "ERRORS": {
+      "EXISTS": "User already exists",
+      "NOT_FOUND": "User not found",
+      "INVALID_ID": "Invalid user ID",
+      "INTERNAL_SERVER_ERROR": "Internal server error",
+      "MISSING_DATA": "Missing data"
+    },
+    "SUCCESS": {
+      "CREATED": "User created successfully",
+      "UPDATED": "User updated successfully",
+      "DELETED": "User deleted successfully"
+    },
+    "MESSAGES": {
+      "PROMOTED_TO_ADMIN": "User successfully promoted to administrator",
+      "PROMOTED_TO_ADMIN_FAILED": "Failed to promote user to administrator"
+    }
+  },
+  "REVIEW": {
+    "ERRORS": {
+      "NOT_FOUND": "Review not found",
+      "INTERNAL_SERVER_ERROR": "Internal server error",
+      "NOT_OWNED": "You cannot edit a review that is not yours",
+      "FORBIDDEN": "You are not authorized to perform this action"
+    },
+    "SUCCESS": {
+      "CREATED": "Review created successfully",
+      "UPDATED": "Review updated successfully",
+      "DELETED": "Review deleted successfully"
+    }
+  }
+}

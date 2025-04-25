@@ -1,0 +1,40 @@
+{
+  "USER": {
+    "EMAIL": {
+      "STRING": "E-mail deve ser uma string",
+      "INVALID": "E-mail deve ser um endereço de e-mail válido",
+      "MAX_LENGTH": "E-mail deve ter no máximo {maxLength} caracteres"
+    },
+    "DISPLAY_NAME": {
+      "STRING": "Nome de exibição deve ser uma string",
+      "MAX_LENGTH": "Nome de exibição deve ter no máximo {maxLength} caracteres"
+    },
+    "USERNAME": {
+      "STRING": "Nome de usuário deve ser uma string",
+      "MAX_LENGTH": "Nome de usuário deve ter no máximo {maxLength} caracteres"
+    },
+    "PASSWORD": {
+      "STRING": "Senha deve ser uma string",
+      "STRONG": "Senha deve ter no mínimo {minLength} caracteres, {minNumbers} número, {minSymbols} símbolo e {minUppercase} letra maiúscula",
+      "MAX_LENGTH": "Senha deve ter no máximo {maxLength} caracteres"
+    }
+  },
+  "REVIEW": {
+    "TITLE": {
+      "STRING": "Título deve ser uma string",
+      "MAX_LENGTH": "Título deve ter no máximo {maxLength} caracteres"
+    },
+    "CONTENT": {
+      "STRING": "Conteúdo deve ser uma string",
+      "MAX_LENGTH": "Conteúdo deve ter no máximo {maxLength} caracteres"
+    },
+    "AUTHOR": {
+      "STRING": "Autor deve ser uma string",
+      "MAX_LENGTH": "Autor deve ter no máximo {maxLength} caracteres"
+    },
+    "RATING": {
+      "STRING": "Avaliação deve ser uma string",
+      "MAX_LENGTH": "Avaliação deve ter no máximo {maxLength} caracteres"
+    }
+  }
+}

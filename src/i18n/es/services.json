@@ -1,0 +1,44 @@
+{
+  "AUTH": {
+    "ERRORS": {
+      "TOKEN_NOT_VALID": "Token inválido",
+      "TOKEN_NOT_PROVIDED": "Token no proporcionado",
+      "LOGIN_FAILED": "Error de inicio de sesión",
+      "UNAUTHORIZED": "No autorizado",
+      "EMAIL_OR_PASSWORD_NOT_FOUND": "Correo electrónico o contraseña no encontrados",
+      "PASSWORD_NOT_MATCH": "Contraseña no coincide"
+    }
+  },
+  "USER": {
+    "ERRORS": {
+      "EXISTS": "El usuario ya existe",
+      "NOT_FOUND": "Usuario no encontrado",
+      "INVALID_ID": "ID de usuario inválido",
+      "INTERNAL_SERVER_ERROR": "Error interno del servidor",
+      "MISSING_DATA": "Faltan datos"
+    },
+    "SUCCESS": {
+      "CREATED": "Usuario creado exitosamente",
+      "UPDATED": "Usuario actualizado exitosamente",
+      "DELETED": "Usuario eliminado exitosamente"
+    },
+    "MESSAGES": {
+      "EMAIL_OR_PASSWORD_NOT_FOUND": "Correo electrónico o contraseña no encontrados",
+      "PROMOTED_TO_ADMIN": "Usuario promovido a administrador exitosamente",
+      "PROMOTED_TO_ADMIN_FAILED": "Error al promover usuario a administrador"
+    }
+  },
+  "REVIEW": {
+    "ERRORS": {
+      "NOT_FOUND": "Reseña no encontrada",
+      "INTERNAL_SERVER_ERROR": "Error interno del servidor",
+      "NOT_OWNED": "No puedes editar una reseña que no es tuya",
+      "FORBIDDEN": "No estás autorizado para realizar esta acción"
+    },
+    "SUCCESS": {
+      "CREATED": "Reseña creada exitosamente",
+      "UPDATED": "Reseña actualizada exitosamente",
+      "DELETED": "Reseña eliminada exitosamente"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "AUTH": {
+    "ERRORS": {
+      "TOKEN_NOT_VALID": "Token inválido",
+      "TOKEN_NOT_PROVIDED": "Token não fornecido",
+      "LOGIN_FAILED": "Login falhou",
+      "UNAUTHORIZED": "Não autorizado",
+      "EMAIL_OR_PASSWORD_NOT_FOUND": "Email ou senha não encontrados",
+      "PASSWORD_NOT_MATCH": "Senha não corresponde"
+    }
+  },
+  "USER": {
+    "ERRORS": {
+      "EXISTS": "Usuário já existe",
+      "NOT_FOUND": "Usuário não encontrado",
+      "INVALID_ID": "ID de usuário inválido",
+      "INTERNAL_SERVER_ERROR": "Erro interno do servidor",
+      "MISSING_DATA": "Faltam dados"
+    },
+    "SUCCESS": {
+      "CREATED": "Usuário criado com sucesso",
+      "UPDATED": "Usuário atualizado com sucesso",
+      "DELETED": "Usuário deletado com sucesso"
+    },
+    "MESSAGES": {
+      "PROMOTED_TO_ADMIN": "Usuário promovido a administrador com sucesso",
+      "PROMOTED_TO_ADMIN_FAILED": "Falha ao promover usuário a administrador"
+    }
+  },
+  "REVIEW": {
+    "ERRORS": {
+      "NOT_FOUND": "Análise não encontrado",
+      "INTERNAL_SERVER_ERROR": "Erro interno do servidor",
+      "NOT_OWNED": "Você não pode editar uma análise que não é sua",
+      "FORBIDDEN": "Você não está autorizado a realizar esta ação"
+    },
+    "SUCCESS": {
+      "CREATED": "Análise criado com sucesso",
+      "UPDATED": "Análise atualizado com sucesso",
+      "DELETED": "Análise deletado com sucesso"
+    }
+  }
+}
