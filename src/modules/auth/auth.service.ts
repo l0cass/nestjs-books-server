@@ -80,9 +80,7 @@ export class AuthService {
 
       if (!user) {
         throw new UnauthorizedException(
-          this.i18n.translate(
-            'services.AUTH.ERRORS.EMAIL_OR_PASSWORD_NOT_FOUND',
-          ),
+          this.i18n.translate('services.AUTH.ERRORS.INVALID_CREDENTIALS'),
         );
       }
 
@@ -93,9 +91,7 @@ export class AuthService {
 
       if (!compareEncryptedPassword) {
         throw new UnauthorizedException(
-          this.i18n.translate(
-            'services.AUTH.ERRORS.EMAIL_OR_PASSWORD_NOT_FOUND',
-          ),
+          this.i18n.translate('services.AUTH.ERRORS.INVALID_CREDENTIALS'),
         );
       }
 

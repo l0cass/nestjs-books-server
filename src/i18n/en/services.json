@@ -5,7 +5,7 @@
       "TOKEN_NOT_PROVIDED": "Token not provided",
       "LOGIN_FAILED": "Login failed",
       "UNAUTHORIZED": "Unauthorized",
-      "EMAIL_OR_PASSWORD_NOT_FOUND": "Email or password not found",
+      "INVALID_CREDENTIALS": "Email and/or password are incorrect.",
       "PASSWORD_NOT_MATCH": "Password not match"
     }
   },
