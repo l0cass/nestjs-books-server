@@ -74,7 +74,7 @@ export class AuthService {
 
   async generateAccessToken(
     data: LogInUserDTO,
-  ): Promise<{ accessToken: string }> {
+  ): Promise<{ user: User; accessToken: string }> {
     try {
       const user = await this.userRepository.findOneBy({ email: data.email });
 
@@ -103,7 +103,7 @@ export class AuthService {
         displayName: user.displayName,
       } as Payload);
 
-      return { accessToken };
+      return { user, accessToken };
     } catch (error) {
       if (error instanceof UnauthorizedException) throw error;
       this.logger.error((error as Error).message);
