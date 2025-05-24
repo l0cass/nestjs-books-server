@@ -23,7 +23,6 @@
       "DELETED": "Usuario eliminado exitosamente"
     },
     "MESSAGES": {
-      "EMAIL_OR_PASSWORD_NOT_FOUND": "Correo electrónico o contraseña no encontrados",
       "PROMOTED_TO_ADMIN": "Usuario promovido a administrador exitosamente",
       "PROMOTED_TO_ADMIN_FAILED": "Error al promover usuario a administrador"
     }
