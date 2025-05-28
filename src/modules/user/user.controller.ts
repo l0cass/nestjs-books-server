@@ -43,7 +43,7 @@ import {
 import { FastifyRequest } from 'fastify';
 
 @ApiTags('Users')
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

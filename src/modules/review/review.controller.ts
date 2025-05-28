@@ -32,7 +32,7 @@ import { CreateReviewDTO, UpdateReviewDTO } from 'src/domains/dtos/review';
 import { FastifyRequest } from 'fastify';
 
 @ApiTags('Reviews')
-@Controller('review')
+@Controller('reviews')
 @UseGuards(RoleGuard)
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}

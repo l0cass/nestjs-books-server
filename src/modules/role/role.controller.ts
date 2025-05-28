@@ -18,7 +18,7 @@ import { ApiPromoteToAdmin } from 'src/swagger/endpoints/role';
 import { UUIDInterceptor } from 'src/commons/interceptors/uuid';
 
 @ApiTags('Role Management')
-@Controller('role')
+@Controller('roles')
 @UseGuards(RoleGuard)
 @AllowRoles(ROLE_ENUM.ADMIN)
 export class RoleController {
