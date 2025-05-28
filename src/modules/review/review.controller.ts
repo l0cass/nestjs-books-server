@@ -52,7 +52,7 @@ export class ReviewController {
     return this.reviewService.findOneById(id);
   }
 
-  @Post('create')
+  @Post()
   @ApiCreateReview('Create new review')
   create(@Body() data: CreateReviewDTO) {
     return this.reviewService.create(data);
