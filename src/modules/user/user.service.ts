@@ -15,11 +15,7 @@ import { I18nService } from 'nestjs-i18n';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import {
-  CreateUserDTO,
-  LogInUserDTO,
-  UpdateUserDTO,
-} from 'src/domains/dtos/user';
+import { CreateUserDTO, UpdateUserDTO } from 'src/domains/dtos/user';
 
 import { IBaseResponse } from 'src/commons/interfaces/base-response';
 import { IPaginatedResponse } from 'src/commons/interfaces/paginated-response';
