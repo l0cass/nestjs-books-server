@@ -113,10 +113,9 @@ export class UserController {
 
     return this.userService.delete(requestUser.id, data);
   }
-  e;
 
   @Delete(':id')
-  @ApiBearerAuth('Authorization')
+  @ApiBearerAuth()
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.ADMIN)
   @ApiAdminDeleteUser('Delete user by ID (Admin only)')
