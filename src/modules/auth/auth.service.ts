@@ -17,7 +17,7 @@ import { IncomingHttpHeaders } from 'http';
 
 import { FastifyRequest } from 'fastify';
 
-import { LogInUserDTO } from 'src/domains/dtos/user';
+import { SignInUserDTO } from 'src/domains/dtos/auth';
 
 import * as bcrypt from 'bcryptjs';
 
@@ -73,7 +73,7 @@ export class AuthService {
   }
 
   async generateAccessToken(
-    data: LogInUserDTO,
+    data: SignInUserDTO,
   ): Promise<{ user: User; accessToken: string }> {
     try {
       const user = await this.userRepository.findOneBy({ email: data.email });

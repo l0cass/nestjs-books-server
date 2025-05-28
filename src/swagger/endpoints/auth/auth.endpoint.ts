@@ -6,7 +6,7 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 
-import { LogInUserDTO } from 'src/domains/dtos/user';
+import { SignInUserDTO } from 'src/domains/dtos/auth';
 
 export function ApiAccessToken(summary: string) {
   return applyDecorators(
@@ -32,10 +32,10 @@ export function ApiAccessToken(summary: string) {
   );
 }
 
-export function ApiLogIn(summary: string) {
+export function ApiSignIn(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBody({ type: LogInUserDTO }),
+    ApiBody({ type: SignInUserDTO }),
     ApiResponse({
       status: 200,
       description: 'Successfully authenticated',
