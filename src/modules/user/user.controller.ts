@@ -10,7 +10,6 @@ import {
   Req,
   UnauthorizedException,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -31,8 +30,6 @@ import {
   ApiDeleteUser,
   ApiUpdateUser,
 } from 'src/swagger/endpoints/user';
-
-import { UUIDInterceptor } from 'src/commons/interceptors/uuid';
 
 import {
   CreateUserDTO,

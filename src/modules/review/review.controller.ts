@@ -10,7 +10,6 @@ import {
   Req,
   UnauthorizedException,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';

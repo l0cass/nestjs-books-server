@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Param,
-  Post,
-  UseGuards,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { RoleGuard } from './guards';
