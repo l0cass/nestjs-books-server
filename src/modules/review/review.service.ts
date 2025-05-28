@@ -18,6 +18,7 @@ import { CreateReviewDTO, UpdateReviewDTO } from 'src/domains/dtos/review';
 import { IBaseResponse } from 'src/commons/interfaces/base-response';
 import { IResponse } from 'src/commons/interfaces/response';
 import { IPaginatedResponse } from 'src/commons/interfaces/paginated-response';
+
 import { ROLE_ENUM } from 'src/commons/enums/roles';
 
 @Injectable()
@@ -31,6 +32,8 @@ export class ReviewService {
     @InjectRepository(Review)
     private readonly reviewRepository: Repository<Review>,
   ) {}
+
+  private readonly logger: Logger = new Logger(ReviewService.name);
 
   async create(data: CreateReviewDTO): Promise<IBaseResponse> {
     try {

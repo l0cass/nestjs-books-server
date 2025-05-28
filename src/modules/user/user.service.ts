@@ -38,7 +38,7 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  public readonly logger: Logger = new Logger(UserService.name);
+  private readonly logger: Logger = new Logger(UserService.name);
 
   async create(data: CreateUserDTO): Promise<IBaseResponse> {
     try {

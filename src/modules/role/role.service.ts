@@ -27,7 +27,7 @@ export class RoleService {
     private readonly adminRepository: Repository<Admin>,
   ) {}
 
-  readonly logger: Logger = new Logger(RoleService.name);
+  private readonly logger: Logger = new Logger(RoleService.name);
 
   async promoteToAdmin(userId: string): Promise<IBaseResponse> {
     try {
