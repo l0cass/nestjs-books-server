@@ -11,7 +11,7 @@ import { LogInUserDTO } from 'src/domains/dtos/user';
 export function ApiAccessToken(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBearerAuth(),
+    ApiBearerAuth('Authorization'),
     ApiResponse({
       status: 200,
       description: 'Token is valid',

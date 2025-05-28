@@ -36,7 +36,7 @@ export class AuthController {
     return this.authService.verifyAccessToken(request);
   }
 
-  @Post('log-in')
+  @Post('sign-in')
   @HttpCode(HttpStatus.OK)
   @AllowAnonymous()
   @ApiLogIn('Authenticate user and get access token')

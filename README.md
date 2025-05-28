@@ -148,12 +148,12 @@ Use it to explore all endpoints, request/response schemas, and try out the API i
 
 ### Authentication
 
-- **POST** `/api/auth/log-in`
+- **POST** `/api/auth/sign-in`
   Authenticate user and receive an access token.
 
   Example request:
   ```bash
-  curl -X POST "http://localhost:3000/api/auth/log-in" \
+  curl -X POST "http://localhost:3000/api/auth/sign-in" \
   -H "Content-Type: application/json" \
   -d '{"email": "john@exemple.com", "password": "passW@rd1"}'
   ```
