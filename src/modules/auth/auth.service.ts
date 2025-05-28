@@ -19,6 +19,8 @@ import { FastifyRequest } from 'fastify';
 
 import { SignInUserDTO } from 'src/domains/dtos/auth';
 
+import { IResponse } from 'src/commons/interfaces/response';
+
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
