@@ -73,7 +73,6 @@ export function ApiFindOneById(summary: string) {
     ApiResponse({
       status: 200,
       description: 'Review found',
-    ApiBearerAuth('Authorization'),
       schema: {
         type: 'object',
         properties: {
