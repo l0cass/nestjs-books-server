@@ -9,7 +9,7 @@ import {
 export function ApiPromoteToAdmin(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBearerAuth(),
+    ApiBearerAuth('Authorization'),
     ApiParam({
       name: 'id',
       description: 'ID of the user to promote',
