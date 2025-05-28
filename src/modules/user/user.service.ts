@@ -21,7 +21,9 @@ import {
   UpdateUserDTO,
 } from 'src/domains/dtos/user';
 
-import { Result } from 'src/commons/interfaces/result';
+import { IBaseResponse } from 'src/commons/interfaces/base-response';
+import { IPaginatedResponse } from 'src/commons/interfaces/paginated-response';
+import { IResponse } from 'src/commons/interfaces/response';
 
 import * as bcrypt from 'bcryptjs';
 import { ROLE_ENUM } from 'src/commons/enums/roles';
@@ -38,7 +40,7 @@ export class UserService {
 
   public readonly logger: Logger = new Logger(UserService.name);
 
-  async create(data: CreateUserDTO): Promise<Result> {
+  async create(data: CreateUserDTO): Promise<IBaseResponse> {
     try {
       const userExists = await this.userRepository.findOneBy({
         email: data.email,
@@ -70,7 +72,7 @@ export class UserService {
     }
   }
 
-  async update(id: string, data: UpdateUserDTO): Promise<Result> {
+  async update(id: string, data: UpdateUserDTO): Promise<IBaseResponse> {
     try {
       const user = await this.userRepository.findOneBy({ id });
 
@@ -95,7 +97,7 @@ export class UserService {
     }
   }
 
-  async delete(id: string, data?: DeleteUserDTO): Promise<Result> {
+  async delete(id: string, data?: DeleteUserDTO): Promise<IBaseResponse> {
     try {
       const user = await this.userRepository.findOneBy({ id });
 
@@ -137,11 +139,13 @@ export class UserService {
     }
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<IResponse<{ users: User[] }>> {
     try {
-      return await this.userRepository.find({
+      const users = await this.userRepository.find({
         select: ['id', 'email', 'username', 'displayName'],
       });
+
+      return { users };
     } catch (error) {
       this.logger.error((error as Error).message);
       throw new InternalServerErrorException(
@@ -153,12 +157,7 @@ export class UserService {
   async findAllPaginated(
     page = 1,
     limit = 10,
-  ): Promise<{
-    data: User[];
-    total: number;
-    page: number;
-    limit: number;
-  }> {
+  ): Promise<IPaginatedResponse<{ users: User[] }>> {
     try {
       const [data, total] = await this.userRepository.findAndCount({
         select: ['id', 'email', 'username', 'displayName'],
@@ -166,7 +165,7 @@ export class UserService {
         take: limit,
       });
 
-      return { data, total, page, limit };
+      return { users: data, total, page, limit };
     } catch (error) {
       this.logger.error((error as Error).message);
       throw new InternalServerErrorException(
@@ -175,7 +174,7 @@ export class UserService {
     }
   }
 
-  async findOneById(id: string): Promise<User> {
+  async findOneById(id: string): Promise<IResponse<{ user: User }>> {
     try {
       const user = await this.userRepository.findOne({
         where: { id },
@@ -188,7 +187,7 @@ export class UserService {
         );
       }
 
-      return user;
+      return { user };
     } catch (error) {
       this.logger.error((error as Error).message);
       if (error instanceof NotFoundException) throw error;

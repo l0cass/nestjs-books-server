@@ -15,7 +15,9 @@ import { Repository } from 'typeorm';
 
 import { CreateReviewDTO, UpdateReviewDTO } from 'src/domains/dtos/review';
 
-import { Result } from 'src/commons/interfaces/result';
+import { IBaseResponse } from 'src/commons/interfaces/base-response';
+import { IResponse } from 'src/commons/interfaces/response';
+import { IPaginatedResponse } from 'src/commons/interfaces/paginated-response';
 import { ROLE_ENUM } from 'src/commons/enums/roles';
 
 @Injectable()
@@ -30,9 +32,7 @@ export class ReviewService {
     private readonly reviewRepository: Repository<Review>,
   ) {}
 
-  private readonly logger: Logger = new Logger(ReviewService.name);
-
-  async create(data: CreateReviewDTO): Promise<Result> {
+  async create(data: CreateReviewDTO): Promise<IBaseResponse> {
     try {
       const newReview = this.reviewRepository.create(data);
       await this.reviewRepository.save(newReview);
@@ -50,7 +50,7 @@ export class ReviewService {
     userId: string,
     reviewId: string,
     data: UpdateReviewDTO,
-  ): Promise<Result> {
+  ): Promise<IBaseResponse> {
     try {
       const user = await this.userRepository.findOne({
         where: { id: userId },
@@ -92,7 +92,7 @@ export class ReviewService {
     }
   }
 
-  async delete(userId: string, reviewId: string): Promise<Result> {
+  async delete(userId: string, reviewId: string): Promise<IBaseResponse> {
     try {
       const user = await this.userRepository.findOne({
         where: { id: userId },
@@ -136,9 +136,9 @@ export class ReviewService {
     }
   }
 
-  async findAll(): Promise<Review[]> {
+  async findAll(): Promise<IResponse<{ reviews: Review[] }>> {
     try {
-      return await this.reviewRepository.find({
+      const reviews = await this.reviewRepository.find({
         select: {
           id: true,
           user: {
@@ -155,6 +155,8 @@ export class ReviewService {
         },
         relations: ['user'],
       });
+
+      return { reviews };
     } catch (error) {
       this.logger.error((error as Error).message);
       throw new InternalServerErrorException(
@@ -166,12 +168,7 @@ export class ReviewService {
   async findAllPaginated(
     page = 1,
     limit = 10,
-  ): Promise<{
-    data: Review[];
-    total: number;
-    page: number;
-    limit: number;
-  }> {
+  ): Promise<IPaginatedResponse<{ reviews: Review[] }>> {
     try {
       const [data, total] = await this.reviewRepository.findAndCount({
         select: {
@@ -193,7 +190,7 @@ export class ReviewService {
         take: limit,
       });
 
-      return { data, total, page, limit };
+      return { reviews: data, total, page, limit };
     } catch (error) {
       this.logger.error((error as Error).message);
       throw new InternalServerErrorException(
@@ -202,7 +199,7 @@ export class ReviewService {
     }
   }
 
-  async findOneById(id: string): Promise<Review> {
+  async findOneById(id: string): Promise<IResponse<{ review: Review }>> {
     try {
       const review = await this.reviewRepository.findOne({
         where: { id },
@@ -229,7 +226,7 @@ export class ReviewService {
         );
       }
 
-      return review;
+      return { review };
     } catch (error) {
       this.logger.error((error as Error).message);
       if (error instanceof NotFoundException) throw error;
