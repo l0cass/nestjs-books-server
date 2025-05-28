@@ -25,7 +25,7 @@ import {
   ApiDeleteReview,
 } from 'src/swagger/endpoints/review';
 
-import { UUIDInterceptor } from 'src/commons/interceptors/uuid';
+import { UUIDValidationPipe } from 'src/commons/pipes/uuid';
 
 import { CreateReviewDTO, UpdateReviewDTO } from 'src/domains/dtos/review';
 
@@ -48,8 +48,7 @@ export class ReviewController {
 
   @Get(':id')
   @ApiFindOneById('Get review by ID')
-  @UseInterceptors(UUIDInterceptor)
-  findOneById(@Param('id') id: string) {
+  findOneById(@Param('id', UUIDValidationPipe) id: string) {
     return this.reviewService.findOneById(id);
   }
 

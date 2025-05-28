@@ -40,6 +40,8 @@ import {
   UpdateUserDTO,
 } from 'src/domains/dtos/user';
 
+import { UUIDValidationPipe } from 'src/commons/pipes/uuid';
+
 import { FastifyRequest } from 'fastify';
 
 @ApiTags('Users')
@@ -62,8 +64,7 @@ export class UserController {
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.USER)
   @ApiFindOneById('Get user by ID')
-  @UseInterceptors(UUIDInterceptor)
-  findOneById(@Param('id') id: string) {
+  findOneById(@Param('id', UUIDValidationPipe) id: string) {
     return this.userService.findOneById(id);
   }
 
@@ -92,8 +93,10 @@ export class UserController {
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.ADMIN)
   @ApiAdminUpdateUser('Update user by ID (Admin only)')
-  @UseInterceptors(UUIDInterceptor)
-  updateById(@Param('id') id: string, @Body() data: UpdateUserDTO) {
+  updateById(
+    @Param('id', UUIDValidationPipe) id: string,
+    @Body() data: UpdateUserDTO,
+  ) {
     return this.userService.update(id, data);
   }
 
@@ -117,8 +120,7 @@ export class UserController {
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.ADMIN)
   @ApiAdminDeleteUser('Delete user by ID (Admin only)')
-  @UseInterceptors(UUIDInterceptor)
-  deleteById(@Param('id') id: string) {
+  deleteById(@Param('id', UUIDValidationPipe) id: string) {
     return this.userService.delete(id);
   }
 }

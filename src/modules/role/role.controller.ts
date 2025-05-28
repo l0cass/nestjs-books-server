@@ -15,7 +15,7 @@ import { RoleService } from './role.service';
 
 import { ApiPromoteToAdmin } from 'src/swagger/endpoints/role';
 
-import { UUIDInterceptor } from 'src/commons/interceptors/uuid';
+import { UUIDValidationPipe } from 'src/commons/pipes/uuid';
 
 @ApiTags('Role Management')
 @Controller('roles')
@@ -26,8 +26,7 @@ export class RoleController {
 
   @Post('promote/admin/:id')
   @ApiPromoteToAdmin('Promote user to Admin role (Admin only)')
-  @UseInterceptors(UUIDInterceptor)
-  promoteToAdmin(@Param('id') id: string) {
-    return this.roleService.promoteToAdmin(id);
+  promoteToAdmin(@Param('userId', UUIDValidationPipe) userId: string) {
+    return this.roleService.promoteToAdmin(userId);
   }
 }
