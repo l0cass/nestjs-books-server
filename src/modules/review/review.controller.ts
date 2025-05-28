@@ -22,6 +22,7 @@ import {
   ApiFindOneById,
   ApiFindReviewsAllPaginated,
   ApiDeleteReview,
+  ApiFindReviewByUserId,
 } from 'src/swagger/endpoints/review';
 
 import { UUIDValidationPipe } from 'src/commons/pipes/uuid';
@@ -49,6 +50,16 @@ export class ReviewController {
   @ApiFindOneById('Get review by ID')
   findOneById(@Param('id', UUIDValidationPipe) id: string) {
     return this.reviewService.findOneById(id);
+  }
+
+  @Get('user/:id')
+  @ApiFindReviewByUserId('Get reviews by User ID with pagination')
+  findReviewsByUserId(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Param('id', UUIDValidationPipe) id: string,
+  ) {
+    return this.reviewService.findByUserIdPaginated(page, limit, id);
   }
 
   @Post()

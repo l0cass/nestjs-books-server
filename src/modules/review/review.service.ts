@@ -202,6 +202,50 @@ export class ReviewService {
     }
   }
 
+  async findByUserIdPaginated(
+    page = 1,
+    limit = 10,
+    id: string,
+  ): Promise<IPaginatedResponse<{ users: User[] }>> {
+    try {
+      this.logger.debug('Hello');
+
+      const [data, total] = await this.userRepository.findAndCount({
+        where: { id },
+        select: {
+          id: true,
+          username: true,
+          reviews: {
+            bookReference: true,
+            title: true,
+            content: true,
+            authors: true,
+            rating: true,
+            publishedAt: true,
+            updatedAt: true,
+          },
+        },
+        relations: ['reviews'],
+        skip: (page - 1) * limit,
+        take: limit,
+      });
+
+      if (!data.length) {
+        throw new NotFoundException(
+          this.i18n.translate('services.REVIEW.ERRORS.NOT_FOUND'),
+        );
+      }
+
+      return { users: data, total, page, limit };
+    } catch (error) {
+      this.logger.error((error as Error).message);
+      if (error instanceof NotFoundException) throw error;
+      throw new InternalServerErrorException(
+        this.i18n.translate('services.REVIEW.ERRORS.INTERNAL_SERVER_ERROR'),
+      );
+    }
+  }
+
   async findOneById(id: string): Promise<IResponse<{ review: Review }>> {
     try {
       const review = await this.reviewRepository.findOne({
