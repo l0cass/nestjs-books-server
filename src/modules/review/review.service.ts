@@ -82,7 +82,7 @@ export class ReviewService {
 
       await this.reviewRepository.update(reviewId, {
         ...data,
-        updatedAt: new Date(),
+        updatedAt: new Date().getTime(),
       });
 
       return { message: this.i18n.translate('services.REVIEW.SUCESS.UPDATED') };
