@@ -150,7 +150,7 @@ export class UserService {
     }
   }
 
-  async findAllPaginated(
+  async findPaginated(
     page = 1,
     limit = 10,
   ): Promise<IPaginatedResponse<{ users: User[] }>> {

@@ -38,11 +38,11 @@ export class ReviewController {
 
   @Get()
   @ApiFindReviewsAllPaginated('Get reviews with pagination')
-  findAllPaginated(
+  findPaginated(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
   ) {
-    return this.reviewService.findAllPaginated(page, limit);
+    return this.reviewService.findPaginated(page, limit);
   }
 
   @Get(':id')
