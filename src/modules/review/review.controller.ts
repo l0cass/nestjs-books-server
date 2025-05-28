@@ -75,7 +75,7 @@ export class ReviewController {
   }
 
   @Delete(':id')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Authorization')
   @ApiDeleteReview('Delete review by ID')
   deleteById(@Req() request: FastifyRequest, @Param('id') reviewId: string) {
     const requestUser = request.user;

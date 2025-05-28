@@ -116,7 +116,7 @@ export class UserController {
   e;
 
   @Delete(':id')
-  @ApiBearerAuth()
+  @ApiBearerAuth('Authorization')
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.ADMIN)
   @ApiAdminDeleteUser('Delete user by ID (Admin only)')
