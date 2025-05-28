@@ -24,7 +24,7 @@ import { UUIDValidationPipe } from 'src/commons/pipes/uuid';
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
-  @Post('promote/admin/:id')
+  @Post('promote/admin/:userId')
   @ApiPromoteToAdmin('Promote user to Admin role (Admin only)')
   promoteToAdmin(@Param('userId', UUIDValidationPipe) userId: string) {
     return this.roleService.promoteToAdmin(userId);

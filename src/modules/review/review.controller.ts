@@ -38,7 +38,7 @@ export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
   @Get()
-  @ApiFindReviewsAllPaginated('Get all reviews with pagination')
+  @ApiFindReviewsAllPaginated('Get reviews with pagination')
   findAllPaginated(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
@@ -58,7 +58,7 @@ export class ReviewController {
     return this.reviewService.create(data);
   }
 
-  @Patch('update/:id')
+  @Patch(':id')
   @ApiUpdateReview('Update review by ID')
   updateById(
     @Req() request: FastifyRequest,
@@ -74,7 +74,7 @@ export class ReviewController {
     return this.reviewService.update(requestUser.id, reviewId, data);
   }
 
-  @Delete('delete/:id')
+  @Delete(':id')
   @ApiBearerAuth()
   @ApiDeleteReview('Delete review by ID')
   deleteById(@Req() request: FastifyRequest, @Param('id') reviewId: string) {

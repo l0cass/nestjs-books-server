@@ -68,14 +68,14 @@ export class UserController {
     return this.userService.findOneById(id);
   }
 
-  @Post('create')
+  @Post()
   @AllowAnonymous()
   @ApiCreateUser('Create new user')
   create(@Body() data: CreateUserDTO) {
     return this.userService.create(data);
   }
 
-  @Patch('update')
+  @Patch()
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.USER)
   @ApiUpdateUser('Update current user')
@@ -89,7 +89,7 @@ export class UserController {
     return this.userService.update(requestUser.id, data);
   }
 
-  @Patch('update/:id')
+  @Patch(':id')
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.ADMIN)
   @ApiAdminUpdateUser('Update user by ID (Admin only)')
@@ -100,7 +100,7 @@ export class UserController {
     return this.userService.update(id, data);
   }
 
-  @Delete('delete')
+  @Delete()
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.USER)
   @ApiDeleteUser('Delete current user')
@@ -115,7 +115,7 @@ export class UserController {
   }
   e;
 
-  @Delete('delete/:id')
+  @Delete(':id')
   @ApiBearerAuth()
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.ADMIN)
