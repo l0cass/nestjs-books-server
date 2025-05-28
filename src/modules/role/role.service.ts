@@ -31,7 +31,7 @@ export class RoleService {
 
   async promoteToAdmin(userId: string): Promise<IBaseResponse> {
     try {
-      const user = await this.userRepository.findOneBy({ id });
+      const user = await this.userRepository.findOneBy({ id: userId });
 
       if (!user) {
         throw new NotFoundException(
@@ -44,15 +44,15 @@ export class RoleService {
         await this.userRepository.save(user);
       }
 
-      const existingAdmin = await this.adminRepository.findOne({
-        where: { user: { id } },
+      const adminAlreadyExists = await this.adminRepository.findOne({
+        where: { user: { id: userId } },
         relations: ['user'],
       });
 
-      if (!existingAdmin) {
-        const admin = this.adminRepository.create({ user });
+      if (!adminAlreadyExists) {
+        const adminToCreate = this.adminRepository.create({ user });
 
-        await this.adminRepository.save(admin);
+        await this.adminRepository.save(adminToCreate);
       }
 
       return {
