@@ -74,7 +74,7 @@ export class AuthService {
 
   async generateAccessToken(
     data: SignInUserDTO,
-  ): Promise<{ user: User; accessToken: string }> {
+  ): Promise<IResponse<{ user: User; accessToken: string }>> {
     try {
       const user = await this.userRepository.findOneBy({ email: data.email });
 
