@@ -10,7 +10,6 @@ import {
   Req,
   UnauthorizedException,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -32,18 +31,18 @@ import {
   ApiUpdateUser,
 } from 'src/swagger/endpoints/user';
 
-import { UUIDInterceptor } from 'src/commons/interceptors/uuid';
-
 import {
   CreateUserDTO,
   DeleteUserDTO,
   UpdateUserDTO,
 } from 'src/domains/dtos/user';
 
+import { UUIDValidationPipe } from 'src/commons/pipes/uuid';
+
 import { FastifyRequest } from 'fastify';
 
 @ApiTags('Users')
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -55,26 +54,25 @@ export class UserController {
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
   ) {
-    return this.userService.findAllPaginated(page, limit);
+    return this.userService.findPaginated(page, limit);
   }
 
   @Get(':id')
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.USER)
   @ApiFindOneById('Get user by ID')
-  @UseInterceptors(UUIDInterceptor)
-  findOneById(@Param('id') id: string) {
+  findOneById(@Param('id', UUIDValidationPipe) id: string) {
     return this.userService.findOneById(id);
   }
 
-  @Post('create')
+  @Post()
   @AllowAnonymous()
   @ApiCreateUser('Create new user')
   create(@Body() data: CreateUserDTO) {
     return this.userService.create(data);
   }
 
-  @Patch('update')
+  @Patch()
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.USER)
   @ApiUpdateUser('Update current user')
@@ -88,16 +86,18 @@ export class UserController {
     return this.userService.update(requestUser.id, data);
   }
 
-  @Patch('update/:id')
+  @Patch(':id')
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.ADMIN)
   @ApiAdminUpdateUser('Update user by ID (Admin only)')
-  @UseInterceptors(UUIDInterceptor)
-  updateById(@Param('id') id: string, @Body() data: UpdateUserDTO) {
+  updateById(
+    @Param('id', UUIDValidationPipe) id: string,
+    @Body() data: UpdateUserDTO,
+  ) {
     return this.userService.update(id, data);
   }
 
-  @Delete('delete')
+  @Delete()
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.USER)
   @ApiDeleteUser('Delete current user')
@@ -110,15 +110,13 @@ export class UserController {
 
     return this.userService.delete(requestUser.id, data);
   }
-  e;
 
-  @Delete('delete/:id')
-  @ApiBearerAuth()
+  @Delete(':id')
+  @ApiBearerAuth('Authorization')
   @UseGuards(RoleGuard)
   @AllowRoles(ROLE_ENUM.ADMIN)
   @ApiAdminDeleteUser('Delete user by ID (Admin only)')
-  @UseInterceptors(UUIDInterceptor)
-  deleteById(@Param('id') id: string) {
+  deleteById(@Param('id', UUIDValidationPipe) id: string) {
     return this.userService.delete(id);
   }
 }

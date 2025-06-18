@@ -11,7 +11,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Admin, User } from 'src/domains/entities';
 import { Repository } from 'typeorm';
 
-import { Result } from 'src/commons/interfaces/result';
+import { IBaseResponse } from 'src/commons/interfaces/base-response';
 
 import { ROLE_ENUM } from 'src/commons/enums/roles';
 
@@ -27,11 +27,11 @@ export class RoleService {
     private readonly adminRepository: Repository<Admin>,
   ) {}
 
-  readonly logger: Logger = new Logger(RoleService.name);
+  private readonly logger: Logger = new Logger(RoleService.name);
 
-  async promoteToAdmin(id: string): Promise<Result> {
+  async promoteToAdmin(userId: string): Promise<IBaseResponse> {
     try {
-      const user = await this.userRepository.findOneBy({ id });
+      const user = await this.userRepository.findOneBy({ id: userId });
 
       if (!user) {
         throw new NotFoundException(
@@ -44,15 +44,15 @@ export class RoleService {
         await this.userRepository.save(user);
       }
 
-      const existingAdmin = await this.adminRepository.findOne({
-        where: { user: { id } },
+      const adminAlreadyExists = await this.adminRepository.findOne({
+        where: { user: { id: userId } },
         relations: ['user'],
       });
 
-      if (!existingAdmin) {
-        const admin = this.adminRepository.create({ user });
+      if (!adminAlreadyExists) {
+        const adminToCreate = this.adminRepository.create({ user });
 
-        await this.adminRepository.save(admin);
+        await this.adminRepository.save(adminToCreate);
       }
 
       return {

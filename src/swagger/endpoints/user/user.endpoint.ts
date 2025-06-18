@@ -8,7 +8,11 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 
-import { CreateUserDTO, UpdateUserDTO } from 'src/domains/dtos/user';
+import {
+  UserResponseDTO,
+  CreateUserDTO,
+  UpdateUserDTO,
+} from 'src/domains/dtos/user';
 
 export function ApiFindUsersAllPaginated(summary: string) {
   return applyDecorators(
@@ -29,18 +33,8 @@ export function ApiFindUsersAllPaginated(summary: string) {
     ApiResponse({
       status: 200,
       description: 'List of users retrieved successfully',
-      schema: {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            id: { type: 'string' },
-            email: { type: 'string' },
-            username: { type: 'string' },
-            displayName: { type: 'string' },
-          },
-        },
-      },
+      type: UserResponseDTO,
+      isArray: true,
     }),
     ApiResponse({ status: 401, description: 'Unauthorized' }),
   );
@@ -54,15 +48,7 @@ export function ApiFindOneById(summary: string) {
     ApiResponse({
       status: 200,
       description: 'User found',
-      schema: {
-        type: 'object',
-        properties: {
-          id: { type: 'string' },
-          email: { type: 'string' },
-          username: { type: 'string' },
-          displayName: { type: 'string' },
-        },
-      },
+      type: UserResponseDTO,
     }),
     ApiResponse({ status: 401, description: 'Unauthorized' }),
   );

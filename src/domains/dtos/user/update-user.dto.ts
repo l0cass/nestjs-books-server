@@ -3,6 +3,7 @@ import {
   MaxLength,
   IsStrongPassword,
   IsOptional,
+  MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -12,6 +13,11 @@ export class UpdateUserDTO {
   @IsOptional()
   @IsString({
     message: i18nValidationMessage('validations.USER.DISPLAY_NAME.STRING'),
+  })
+  @MinLength(3, {
+    message: i18nValidationMessage('validations.USER.DISPLAY_NAME.MIN_LENGTH', {
+      minLength: 3,
+    }),
   })
   @MaxLength(30, {
     message: i18nValidationMessage('validations.USER.DISPLAY_NAME.MAX_LENGTH', {
@@ -31,6 +37,11 @@ export class UpdateUserDTO {
   @IsString({
     message: i18nValidationMessage('validations.USER.USERNAME.STRING'),
   })
+  @MinLength(3, {
+    message: i18nValidationMessage('validations.USER.USERNAME.MIN_LENGTH', {
+      minLength: 3,
+    }),
+  })
   @MaxLength(30, {
     message: i18nValidationMessage('validations.USER.USERNAME.MAX_LENGTH', {
       maxLength: 30,
@@ -46,19 +57,16 @@ export class UpdateUserDTO {
   username: string;
 
   @IsOptional()
-  @IsString({
-    message: i18nValidationMessage('validations.USER.PASSWORD.STRING'),
-  })
   @IsStrongPassword(
     {
-      minLength: 3,
+      minLength: 6,
       minNumbers: 1,
       minSymbols: 1,
       minUppercase: 1,
     },
     {
       message: i18nValidationMessage('validations.USER.PASSWORD.STRONG', {
-        minLength: 3,
+        minLength: 6,
         minNumbers: 1,
         minSymbols: 1,
         minUppercase: 1,
@@ -72,8 +80,8 @@ export class UpdateUserDTO {
   })
   @ApiProperty({
     type: 'string',
-    minLength: 3,
-    maxLength: 30,
+    minLength: 6,
+    maxLength: 128,
     nullable: true,
     example: 'passW@rd1',
   })

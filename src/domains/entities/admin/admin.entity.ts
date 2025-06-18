@@ -6,6 +6,7 @@ import {
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  Timestamp,
 } from 'typeorm';
 import { User } from '../user';
 
@@ -19,11 +20,11 @@ export class Admin extends BaseEntity {
   user: User;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  createdAt: Timestamp;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
+  updatedAt: Timestamp;
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
-  deletedAt: Date | null;
+  deletedAt: Timestamp | null;
 }

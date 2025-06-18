@@ -8,7 +8,11 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 
-import { CreateReviewDTO, UpdateReviewDTO } from 'src/domains/dtos/review';
+import {
+  CreateReviewDTO,
+  ReviewResponseDTO,
+  UpdateReviewDTO,
+} from 'src/domains/dtos/review';
 
 export function ApiFindReviewsAllPaginated(summary: string) {
   return applyDecorators(
@@ -29,37 +33,8 @@ export function ApiFindReviewsAllPaginated(summary: string) {
     ApiResponse({
       status: 200,
       description: 'List of reviews retrieved successfully',
-      schema: {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            id: { type: 'string' },
-            user: {
-              type: 'object',
-              properties: {
-                id: { type: 'string' },
-                username: { type: 'string' },
-              },
-            },
-            bookReference: {
-              type: 'object',
-              properties: {
-                id: { type: 'string' },
-                title: { type: 'string' },
-                authors: { type: 'array', items: { type: 'string' } },
-                thumbnailUrl: { type: 'string' },
-              },
-            },
-            title: { type: 'string' },
-            content: { type: 'string' },
-            authors: { type: 'string' },
-            rating: { type: 'number' },
-            publishedAt: { type: 'string' },
-            updatedAt: { type: 'string' },
-          },
-        },
-      },
+      type: ReviewResponseDTO,
+      isArray: true,
     }),
     ApiResponse({ status: 401, description: 'Unauthorized' }),
   );
@@ -73,32 +48,45 @@ export function ApiFindOneById(summary: string) {
     ApiResponse({
       status: 200,
       description: 'Review found',
+      type: ReviewResponseDTO,
+    }),
+    ApiResponse({ status: 401, description: 'Unauthorized' }),
+  );
+}
+
+export function ApiFindReviewByUserId(summary: string) {
+  return applyDecorators(
+    ApiBearerAuth('Authorization'),
+    ApiOperation({ summary }),
+    ApiParam({ name: 'id', description: 'User ID', required: true }),
+    ApiResponse({
+      status: 200,
+      description: 'Reviews found',
       schema: {
         type: 'object',
         properties: {
           id: { type: 'string' },
-          user: {
-            type: 'object',
+          username: { type: 'string' },
+          reviews: {
+            type: 'array',
             properties: {
-              id: { type: 'string' },
-              username: { type: 'string' },
-            },
-          },
-          bookReference: {
-            type: 'object',
-            properties: {
-              id: { type: 'string' },
+              bookReference: {
+                type: 'object',
+                properties: {
+                  id: { type: 'string' },
+                  title: { type: 'string' },
+                  authors: { type: 'array', items: { type: 'string' } },
+                  thumbnailUrl: { type: 'string' },
+                },
+              },
               title: { type: 'string' },
-              authors: { type: 'array', items: { type: 'string' } },
-              thumbnailUrl: { type: 'string' },
+              content: { type: 'string' },
+              authors: { type: 'string' },
+              rating: { type: 'number' },
+              publishedAt: { type: 'string' },
+              updatedAt: { type: 'string' },
             },
           },
-          title: { type: 'string' },
-          content: { type: 'string' },
-          authors: { type: 'string' },
-          rating: { type: 'number' },
-          publishedAt: { type: 'string' },
-          updatedAt: { type: 'string' },
         },
       },
     }),
