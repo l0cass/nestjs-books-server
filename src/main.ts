@@ -36,7 +36,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.enableVersioning({ type: VersioningType.URI });
 
-  app.enableCors({});
+  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle('Readly API')
