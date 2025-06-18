@@ -7,6 +7,7 @@ import {
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  Timestamp,
 } from 'typeorm';
 
 import { ROLE_ENUM } from 'src/commons/enums/roles/roles.enum';
@@ -56,11 +57,11 @@ export class User extends BaseEntity {
   reviews: Review[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  createdAt: Timestamp;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
+  updatedAt: Timestamp;
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
-  deletedAt: Date | null;
+  deletedAt: Timestamp | null;
 }

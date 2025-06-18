@@ -44,6 +44,15 @@ async function bootstrap() {
       "Readly is a platform where readers track their reading journey, share book reviews and recommendations, and discover what's trending in the literary world. It combines personal book management with social features to connect book lovers everywhere.",
     )
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Enter JWT access token',
+      },
+      'Authorization',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

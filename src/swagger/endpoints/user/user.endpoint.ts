@@ -8,12 +8,16 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 
-import { CreateUserDTO, UpdateUserDTO } from 'src/domains/dtos/user';
+import {
+  UserResponseDTO,
+  CreateUserDTO,
+  UpdateUserDTO,
+} from 'src/domains/dtos/user';
 
 export function ApiFindUsersAllPaginated(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBearerAuth(),
+    ApiBearerAuth('Authorization'),
     ApiQuery({
       name: 'page',
       type: Number,
@@ -29,18 +33,8 @@ export function ApiFindUsersAllPaginated(summary: string) {
     ApiResponse({
       status: 200,
       description: 'List of users retrieved successfully',
-      schema: {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            id: { type: 'string' },
-            email: { type: 'string' },
-            username: { type: 'string' },
-            displayName: { type: 'string' },
-          },
-        },
-      },
+      type: UserResponseDTO,
+      isArray: true,
     }),
     ApiResponse({ status: 401, description: 'Unauthorized' }),
   );
@@ -48,21 +42,13 @@ export function ApiFindUsersAllPaginated(summary: string) {
 
 export function ApiFindOneById(summary: string) {
   return applyDecorators(
-    ApiBearerAuth(),
+    ApiBearerAuth('Authorization'),
     ApiOperation({ summary }),
     ApiParam({ name: 'id', description: 'User ID', required: true }),
     ApiResponse({
       status: 200,
       description: 'User found',
-      schema: {
-        type: 'object',
-        properties: {
-          id: { type: 'string' },
-          email: { type: 'string' },
-          username: { type: 'string' },
-          displayName: { type: 'string' },
-        },
-      },
+      type: UserResponseDTO,
     }),
     ApiResponse({ status: 401, description: 'Unauthorized' }),
   );
@@ -71,7 +57,7 @@ export function ApiFindOneById(summary: string) {
 export function ApiCreateUser(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBearerAuth(),
+    ApiBearerAuth('Authorization'),
     ApiBody({ type: CreateUserDTO }),
     ApiResponse({ status: 201, description: 'User created successfully' }),
     ApiResponse({ status: 401, description: 'Unauthorized' }),
@@ -85,7 +71,7 @@ export function ApiCreateUser(summary: string) {
 export function ApiUpdateUser(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBearerAuth(),
+    ApiBearerAuth('Authorization'),
     ApiBody({ type: UpdateUserDTO }),
     ApiResponse({ status: 200, description: 'User updated successfully' }),
     ApiResponse({ status: 401, description: 'Unauthorized' }),
@@ -96,7 +82,7 @@ export function ApiUpdateUser(summary: string) {
 export function ApiAdminUpdateUser(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBearerAuth(),
+    ApiBearerAuth('Authorization'),
     ApiParam({ name: 'id', description: 'User ID', required: true }),
     ApiBody({ type: UpdateUserDTO }),
     ApiResponse({ status: 200, description: 'User updated successfully' }),
@@ -112,7 +98,7 @@ export function ApiAdminUpdateUser(summary: string) {
 export function ApiDeleteUser(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBearerAuth(),
+    ApiBearerAuth('Authorization'),
     ApiResponse({ status: 200, description: 'User deleted successfully' }),
     ApiResponse({ status: 401, description: 'Unauthorized' }),
     ApiResponse({ status: 404, description: 'User not found' }),
@@ -122,7 +108,7 @@ export function ApiDeleteUser(summary: string) {
 export function ApiAdminDeleteUser(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBearerAuth(),
+    ApiBearerAuth('Authorization'),
     ApiParam({ name: 'id', description: 'User ID', required: true }),
     ApiResponse({ status: 200, description: 'User deleted successfully' }),
     ApiResponse({ status: 401, description: 'Unauthorized' }),

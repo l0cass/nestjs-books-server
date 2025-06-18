@@ -6,10 +6,12 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 
+import { UserResponseDTO } from 'src/domains/dtos/user';
+
 export function ApiPromoteToAdmin(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBearerAuth(),
+    ApiBearerAuth('Authorization'),
     ApiParam({
       name: 'id',
       description: 'ID of the user to promote',
@@ -18,6 +20,7 @@ export function ApiPromoteToAdmin(summary: string) {
     ApiResponse({
       status: 200,
       description: 'User successfully promoted to Admin',
+      type: UserResponseDTO,
     }),
     ApiResponse({ status: 401, description: 'Unauthorized' }),
     ApiResponse({

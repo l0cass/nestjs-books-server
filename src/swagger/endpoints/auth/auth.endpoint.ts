@@ -6,25 +6,20 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 
-import { LogInUserDTO } from 'src/domains/dtos/user';
+import {
+  AuthTokenResponseDTO,
+  AuthUserResponseDTO,
+  SignInUserDTO,
+} from 'src/domains/dtos/auth';
 
 export function ApiAccessToken(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBearerAuth(),
+    ApiBearerAuth('Authorization'),
     ApiResponse({
       status: 200,
       description: 'Token is valid',
-      schema: {
-        type: 'object',
-        properties: {
-          id: { type: 'string' },
-          email: { type: 'string' },
-          username: { type: 'string' },
-          displayName: { type: 'string' },
-          roles: { type: 'array', items: { type: 'string' } },
-        },
-      },
+      type: AuthUserResponseDTO,
     }),
     ApiResponse({ status: 401, description: 'Token not provided' }),
     ApiResponse({ status: 401, description: 'User not found' }),
@@ -32,17 +27,14 @@ export function ApiAccessToken(summary: string) {
   );
 }
 
-export function ApiLogIn(summary: string) {
+export function ApiSignIn(summary: string) {
   return applyDecorators(
     ApiOperation({ summary }),
-    ApiBody({ type: LogInUserDTO }),
+    ApiBody({ type: SignInUserDTO }),
     ApiResponse({
       status: 200,
       description: 'Successfully authenticated',
-      schema: {
-        type: 'object',
-        properties: { accessToken: { type: 'string' } },
-      },
+      type: AuthTokenResponseDTO,
     }),
     ApiResponse({
       status: 401,

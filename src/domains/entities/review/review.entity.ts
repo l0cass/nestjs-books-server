@@ -6,6 +6,7 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Timestamp,
 } from 'typeorm';
 import { User } from '../user';
 import { BookReference } from '../book-reference';
@@ -32,15 +33,15 @@ export class Review extends BaseEntity {
   @Column({ type: 'varchar', array: true, nullable: true })
   authors: string[] | null;
 
-  @Column({ type: 'varchar', length: 1 })
-  rating: string;
+  @Column({ type: 'int' })
+  rating: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  publishedAt: Date;
+  publishedAt: Timestamp;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
+  updatedAt: Timestamp;
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
-  deletedAt: Date | null;
+  deletedAt: Timestamp | null;
 }

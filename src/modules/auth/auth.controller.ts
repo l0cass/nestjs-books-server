@@ -15,13 +15,13 @@ import { AuthService } from './auth.service';
 import { RoleGuard } from '../role/guards';
 import { AllowRoles } from '../role/decorators';
 import { ROLE_ENUM } from 'src/commons/enums/roles';
-import { ApiAccessToken, ApiLogIn } from 'src/swagger/endpoints/auth';
+import { ApiAccessToken, ApiSignIn } from 'src/swagger/endpoints/auth';
 
 import { FastifyRequest } from 'fastify';
 
 import { AllowAnonymous } from './decorators';
 
-import { LogInUserDTO } from 'src/domains/dtos/user';
+import { SignInUserDTO } from 'src/domains/dtos/auth';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -36,11 +36,11 @@ export class AuthController {
     return this.authService.verifyAccessToken(request);
   }
 
-  @Post('log-in')
+  @Post('sign-in')
   @HttpCode(HttpStatus.OK)
   @AllowAnonymous()
-  @ApiLogIn('Authenticate user and get access token')
-  async logIn(@Body() data: LogInUserDTO) {
+  @ApiSignIn('Authenticate user and get access token')
+  async logIn(@Body() data: SignInUserDTO) {
     return this.authService.generateAccessToken(data);
   }
 }

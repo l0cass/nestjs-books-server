@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Param,
-  Post,
-  UseGuards,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { RoleGuard } from './guards';
@@ -15,19 +9,18 @@ import { RoleService } from './role.service';
 
 import { ApiPromoteToAdmin } from 'src/swagger/endpoints/role';
 
-import { UUIDInterceptor } from 'src/commons/interceptors/uuid';
+import { UUIDValidationPipe } from 'src/commons/pipes/uuid';
 
 @ApiTags('Role Management')
-@Controller('role')
+@Controller('roles')
 @UseGuards(RoleGuard)
 @AllowRoles(ROLE_ENUM.ADMIN)
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
-  @Post('promote/admin/:id')
+  @Post('promote/admin/:userId')
   @ApiPromoteToAdmin('Promote user to Admin role (Admin only)')
-  @UseInterceptors(UUIDInterceptor)
-  promoteToAdmin(@Param('id') id: string) {
-    return this.roleService.promoteToAdmin(id);
+  promoteToAdmin(@Param('userId', UUIDValidationPipe) userId: string) {
+    return this.roleService.promoteToAdmin(userId);
   }
 }
