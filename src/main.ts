@@ -36,9 +36,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.enableVersioning({ type: VersioningType.URI });
 
-  app.enableCors({
-    origin: ['http://localhost:3000', 'http://192.168.0.11:3000'],
-  });
+  app.enableCors({});
 
   const config = new DocumentBuilder()
     .setTitle('Readly API')
